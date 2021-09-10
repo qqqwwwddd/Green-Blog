@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cos.blogapp.domain.user.User;
 import com.cos.blogapp.domain.user.UserRepository;
 import com.cos.blogapp.util.MyAlgorithm;
-import com.cos.blogapp.util.SHA256;
+import com.cos.blogapp.util.SHA;
 import com.cos.blogapp.util.Script;
 import com.cos.blogapp.web.dto.JoinReqDto;
 import com.cos.blogapp.web.dto.LoginReqDto;
@@ -57,6 +57,7 @@ public class UserController {
 		if(userEntity == null) { // username, password 잘못 기입
 			return Script.back("아이디 혹은 비밀번호를 잘못 입력하였습니다.");
 		}else {
+			// 세션 날라가는 조건 : 1. session.invalidate() , 2. 브라우저를 닫으면 날라감 
 			session.setAttribute("principal", userEntity);
 			return Script.href("/", "로그인 성공");
 		}
@@ -75,7 +76,7 @@ public class UserController {
 			
 		}
 		
-		String encPassword = SHA256.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
+		String encPassword = SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256);
 		
 		dto.setPassword(encPassword);
 		userRepository.save(dto.toEntity());
