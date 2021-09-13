@@ -31,6 +31,13 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final HttpSession session;
 
+	@GetMapping("/logout")
+	public String logout() {
+	//	session.setAttribute("principal", null ); -> 다른 키 값 안먹음 
+		session.invalidate(); // 세션 무효화 (jsessionId에 있는 값을 비우는것)
+		return "board/list"; //게시글 목록 화면에 데이터 ?? 
+	}
+	
 	@GetMapping("/loginForm")
 	public String loginForm() {
 		return "user/loginForm";
@@ -51,8 +58,11 @@ public class UserController {
 			}
 			return Script.back(errorMap.toString());
 		}
-		
-		User userEntity =  userRepository.mLogin(dto.getUsername(), dto.getPassword());
+		User userEntity =
+			userRepository.mLogin(
+					dto.getUsername(), 
+					SHA.encrypt(dto.getPassword(), MyAlgorithm.SHA256)
+				);
 		
 		if(userEntity == null) { // username, password 잘못 기입
 			return Script.back("아이디 혹은 비밀번호를 잘못 입력하였습니다.");
