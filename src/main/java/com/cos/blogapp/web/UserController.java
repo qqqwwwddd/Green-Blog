@@ -11,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,6 +32,15 @@ public class UserController {
 	private final UserRepository userRepository;
 	private final HttpSession session;
 
+	// 회원 정보 수정 
+	@GetMapping("/user/{id}") //RestFul API 
+	public String userInfo(@PathVariable int id) {
+		// 기본은 userRepository.findById(id) 디비에서 select 해서 가져와야함 -> 모델에 담아가야함
+		// 편법은 세션값을 가져올 수 있다.
+		
+		return "user/updateForm.jsp";
+	}
+	
 	@GetMapping("/logout")
 	public String logout() {
 	//	session.setAttribute("principal", null ); -> 다른 키 값 안먹음 
