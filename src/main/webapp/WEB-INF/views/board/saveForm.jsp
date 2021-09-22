@@ -9,9 +9,7 @@
 	    <input type="text" name="title" class="form-control" placeholder="Enter title"  >
 	  </div>
 		<div class="form-group">
-			<textarea class="form-control" rows="5" name="content"></textarea>
-			<textarea id="summernote" class="form-control" rows="5"
-				name="content"></textarea>
+			<textarea id="summernote" class="form-control" rows="5" name="content"></textarea>
 		</div>
 		<button type="submit" class="btn btn-primary">글쓰기</button>
 	</form>
