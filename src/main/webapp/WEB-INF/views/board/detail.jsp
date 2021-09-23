@@ -4,16 +4,26 @@
 
 <div class="container">
 		<a href="#" class="btn btn-warning">수정</a>
-		<button  class="btn btn-danger"  onclick="deletById(${boardEntity.id})">삭제</button>
-		
+	<button class="btn btn-danger" onclick="deleteById(${boardEntity.id})">삭제</button>
+
 		<script>
-			function deleteById(id){
-				// 비동기 함수 호출 -> 비동기를 잘 처리하는 방법? 
-				fetch("http://localhost:8080/board/"+id, {
+		
+			async function deleteById(id){
+				// 1. 비동기 함수 호출 -> 비동기를 잘처리하는 방법??????
+				let response = await fetch("http://localhost:8080/board/"+id, {
 					method: "delete"
-				});
+				}); // 약속 - 어음 (10초)
 				
+				// 2.코드
+				let parseResponse = await response.text();
+				console.log(parseResponse);
+				
+				alert("삭제 성공");
+				location.href="/";
+				// 3.코드
 			}
+			
+			
 		</script>
 	<br /><br />
 	<div>
