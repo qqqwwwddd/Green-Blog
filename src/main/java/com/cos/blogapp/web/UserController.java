@@ -38,7 +38,7 @@ public class UserController {
 		// 기본은 userRepository.findById(id) 디비에서 select 해서 가져와야함 -> 모델에 담아가야함
 		// 편법은 세션값을 가져올 수 있다.
 		
-		return "user/updateForm.jsp";
+		return "user/updateForm";
 	}
 	
 	@GetMapping("/logout")

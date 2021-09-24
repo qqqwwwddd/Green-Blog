@@ -1,12 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-		<a href="#" class="btn btn-warning">수정</a>
-	<button class="btn btn-danger" onclick="deleteById(${boardEntity.id})">삭제</button>
+	<!-- 내 글이면 (권한이 있으면) 수정과 삭제 버튼 보이게 if 사용가능  -->
 
-		<script>
+	<c:if test="${sessionScope.principal.id == boardEntity.user.id}">
+		<a href="#" class="btn btn-warning">수정</a>
+		<button class="btn btn-danger" onclick="deleteById(${boardEntity.id})">삭제</button>
+	</c:if>
+
+	<script>
 		
 			async function deleteById(id){
 				// 1. 비동기 함수 호출 -> 비동기를 잘처리하는 방법??????
@@ -15,19 +20,24 @@
 				}); // 약속 - 어음 (10초)
 				
 				// 2.코드
-				let parseResponse = await response.text();
+				// json() 함수는 json처럼 생긴 문자열을 자바스크립트 오브젝트로 변환해준다
+				let parseResponse = await response.json();
 				console.log(parseResponse);
 				
-				alert("삭제 성공");
-				location.href="/";
-				// 3.코드
-			}
-			
+		if(parseResponse.code == 1){
+					alert("삭제 성공");
+					location.href="/"; 
+				} else {
+					alert(parseResponse.msg);
+					location.href="/"; 
+				} 
+			}	
 			
 		</script>
-	<br /><br />
+	<br /> <br />
 	<div>
-		글 번호 : ${boardEntity.id}</span> 작성자 : <span><i>${boardEntity.user.username} </i></span>
+		글 번호 : ${boardEntity.id}</span> 작성자 : <span><i>${boardEntity.user.username}
+		</i></span>
 	</div>
 	<br />
 	<div>
@@ -52,9 +62,12 @@
 	<br />
 
 	<div class="card">
-		<div class="card-header"><b>댓글 리스트</b></div>
+		<div class="card-header">
+			<b>댓글 리스트</b>
+		</div>
 		<ul id="reply-box" class="list-group">
-			<li id="reply-1" class="list-group-item d-flex justify-content-between">
+			<li id="reply-1"
+				class="list-group-item d-flex justify-content-between">
 				<div>댓글입니다</div>
 				<div class="d-flex">
 					<div class="font-italic">작성자 : 홍길동 &nbsp;</div>
@@ -63,7 +76,7 @@
 			</li>
 		</ul>
 	</div>
-	<br/>
+	<br />
 </div>
 
 <%@ include file="../layout/footer.jsp"%>
