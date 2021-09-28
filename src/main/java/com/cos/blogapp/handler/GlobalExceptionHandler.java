@@ -22,6 +22,7 @@ public class GlobalExceptionHandler {
 		System.out.println(" 오류 터졌어 :" + e.getMessage());
 		return Script.href("/", e.getMessage());
 	}
+
 	
 	@ExceptionHandler(value = MyAsyncNotFoundException.class)
 	public @ResponseBody CMRespDto<String> error2(MyAsyncNotFoundException e) { 
