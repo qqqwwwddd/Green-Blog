@@ -1,5 +1,6 @@
 package com.cos.blogapp.domain.comment;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class Comment {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id; //PK (자동증가 번호)
 	
+	@Column(nullable = false) // Not Null 설정
 	private String content;
 	
 	@JoinColumn(name = "userId") // FK의 컬럼명 정해줌
