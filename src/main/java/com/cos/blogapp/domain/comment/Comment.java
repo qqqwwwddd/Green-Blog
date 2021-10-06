@@ -35,4 +35,9 @@ public class Comment {
 	@JoinColumn(name = "boardId") // FK의 컬럼명 정해줌
 	@ManyToOne
 	private Board board;
+
+	@Override
+	public String toString() {
+		return "Comment [id=" + id + ", content=" + content + ", user=" + user + "]";
+	}
 }

@@ -88,8 +88,6 @@ public class BoardController {
 			throw new MyAsyncNotFoundException("인증이 되지 않았습니다.");
 		}
 
-
-
 		boardService.게시글삭제(id, principal);
 
 		return new CMRespDto<String>(1, "성공", null);
@@ -97,7 +95,7 @@ public class BoardController {
 
 	@GetMapping("/board/{id}")
 	public String detail(@PathVariable int id, Model model) {
-
+		// Board 객체에 존재하는 것 ( Board(O), User(O), List<Comment>(lazy니깐 X) )
 		model.addAttribute("boardEntity", boardService.게시글상세보기(id));
 		return "board/detail";
 	}
