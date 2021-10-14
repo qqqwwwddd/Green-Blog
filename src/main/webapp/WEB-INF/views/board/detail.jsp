@@ -51,7 +51,7 @@
 
 	<div class="card">
 		<!-- 댓글 쓰기 시작 -->
-		<form action="/board/${boardEntity.id}/comment" method="post">
+		<form action="/api/board/${boardEntity.id}/comment" method="post">
 			<div class="card-body">
 				<textarea name="content" class="form-control" rows="1"
 					id="ta-content"></textarea>
@@ -98,7 +98,7 @@
 
 		<script>
 		async function deleteById(commentId){
-			let response = await fetch("http://localhost:8080/comment/"+commentId,{
+			let response = await fetch("http://localhost:8080//api/comment/"+commentId,{
 				method:"delete"
 			});
 		
